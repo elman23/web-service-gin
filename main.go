@@ -26,6 +26,14 @@ var albums = []album{
 
 // getAlbums responds with the list od all albums as JSON
 func getAlbums(c *gin.Context) {
+
+	c.Writer.Header().Set("Content-Type", "application/json")
+    c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+    c.Writer.Header().Set("Access-Control-Max-Age", "86400")
+    c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+    c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, X-Max")
+    c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
@@ -41,6 +49,14 @@ func postAlbums(c *gin.Context) {
 
 	// add the new album to the slice
 	albums = append(albums, newAlbum)
+
+	c.Writer.Header().Set("Content-Type", "application/json")
+    c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+    c.Writer.Header().Set("Access-Control-Max-Age", "86400")
+    c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+    c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, X-Max")
+    c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
@@ -49,6 +65,14 @@ func postAlbums(c *gin.Context) {
 func getAlbumByID(c *gin.Context) {
 	id := c.Param("id")
 
+	c.Writer.Header().Set("Content-Type", "application/json")
+    c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080/albums/2")
+    c.Writer.Header().Set("Access-Control-Max-Age", "86400")
+    c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+    c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, X-Max")
+    c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+
+
 	// loop over the list of albums, looking for an album whose ID value matches the parameter
 	for _, a := range albums {
 		if a.ID == id {
@@ -56,6 +80,7 @@ func getAlbumByID(c *gin.Context) {
 			return
 		}
 	}
+
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 }
 
